@@ -85,7 +85,7 @@ class CreateOauth2ServerMigration extends Migration {
           Schema::create('oauth_session_redirects', function(Blueprint $table){
 
                   $table->engine = "InnoDB";
-                  // auto incremental id (PK)
+                  // auto incremental session_id (PK)
                   $table->unsignedInteger('session_id',10)->primary();
                   $table->string('redirect_url',255);
                   // created_at | updated_at DATETIME
@@ -97,7 +97,7 @@ class CreateOauth2ServerMigration extends Migration {
           Schema::create('oauth_session_refresh_tokens', function(Blueprint $table){
 
                   $table->engine = "InnoDB";
-                  // auto incremental id (PK)
+                  // auto incremental session_access_token_id (PK)
                   $table->unsignedInteger('session_access_token_id')->primary();
                   $table->string('refresh_token',40);
                   $table->unsignedInteger('refresh_token_expires',10);

@@ -49,7 +49,7 @@ class Client implements ClientInterface
      * )
      * </code>
      *
-     * @paramh  string $clientId     The client's ID
+     * @param  string $clientId     The client's ID
      * @param  string $clientSecret The client's secret (default = "null")
      * @param  string $redirectUri  The client's redirect URI (default = "null")
      * @param  string $grantType    The grant type used in the request (default = "null")

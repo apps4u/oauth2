@@ -7,7 +7,7 @@
  *  © 2013 Apps 4 U Pty. Ltd.
  */
 
-namespace Apps4u\Oauth2;
+namespace Apps4u\Oauth2\Storage\Laravel;
 
 
 use League\OAuth2\Server\Storage\ClientInterface;

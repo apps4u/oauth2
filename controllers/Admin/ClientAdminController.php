@@ -7,9 +7,12 @@
  *  © 2013 Apps 4 U Pty. Ltd.
  */
 
-namespace Apps4u\Oauth2\Controllers\Admin;
+namespace Apps4u\OAuth2\Controllers\Admin;
 
 
-class ClientAdminController {
+use Platform\Admin\Controllers\Admin\AdminController;
+
+class ClientAdminController extends AdminController
+{
 
 }

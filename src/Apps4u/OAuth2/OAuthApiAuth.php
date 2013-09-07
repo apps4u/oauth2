@@ -7,7 +7,7 @@
  *  © 2013 Apps 4 U Pty. Ltd.
  */
 
-namespace Apps4u\Oauth2;
+namespace Apps4u\OAuth2;
 
 
 use Cartalyst\Api\Auth\AuthInterface;

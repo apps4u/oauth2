@@ -11,8 +11,13 @@ namespace Apps4u\OAuth2\Controllers\Admin;
 
 
 use Platform\Admin\Controllers\Admin\AdminController;
+use View;
 
-class ClientAdminController extends AdminController
+class ClientsController extends AdminController
 {
 
+    public function getIndex()
+    {
+        return View::make('apps4u/oauth2::clients/index');
+    }
 }

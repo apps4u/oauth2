@@ -12,7 +12,7 @@ namespace Apps4u\OAuth2\Api\V1;
 
 use Platform\Routing\Controllers\ApiController;
 
-class ClientApiController extends ApiController
+class ClientsController extends ApiController
 {
 
 }

@@ -26,10 +26,12 @@
 		"classmap": [
 			"controllers",
 			"database/migrations",
-			"database/seeds"
+			"database/seeds",
+            "models"
+
 		],
 		"psr-0": {
-			"Apps4u\\Oauth2": "src/"
+			"Apps4u\\OAuth2": "src/"
 		}
 	},
 	"minimum-stability": "dev"

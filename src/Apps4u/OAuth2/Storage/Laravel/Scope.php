@@ -17,26 +17,9 @@ class Scope implements ScopeInterface
 {
 
     /**
-     * Return information about a scope
+     * {@inherited}
      *
-     * Example SQL query:
-     *
-     * <code>
-     * SELECT * FROM oauth_scopes WHERE scope = :scope
-     * </code>
-     *
-     * Response:
-     *
-     * <code>
-     * Array
-     * (
-     *     [id] => (int) The scope's ID
-     *     [scope] => (string) The scope itself
-     *     [name] => (string) The scope's name
-     *     [description] => (string) The scope's description
-     * )
-     * </code>
-     *
+     * @api
      * @param  string $scope     The scope
      * @param  string $clientId  The client ID (default = "null")
      * @param  string $grantType The grant type used in the request (default = "null")

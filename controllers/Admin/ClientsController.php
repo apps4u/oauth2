@@ -7,7 +7,7 @@
  *  © 2013 Apps 4 U Pty. Ltd.
  */
 
-namespace Apps4u\OAuth2\Controllers\Admin;
+namespace Apps4u\Oauth2\Controllers\Admin;
 
 
 use Platform\Admin\Controllers\Admin\AdminController;
@@ -16,8 +16,9 @@ use View;
 class ClientsController extends AdminController
 {
 
-    public function getIndex()
+   public function getIndex()
     {
+        set_active_menu('admin-apps4u-oauth2-clients');
         return View::make('apps4u/oauth2::clients/index');
     }
 }

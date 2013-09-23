@@ -339,6 +339,26 @@ return array(
 				'name'  => 'Oauth2',
 				'class' => 'icon-circle-blank',
 				'uri'   => 'oauth2',
+                'children' => array(
+                    array(
+                        'slug' => 'admin-apps4u-oauth2-oauth2',
+                        'name'  => 'Oauth2',
+                        'class' => 'icon-circle-blank',
+                        'uri'   => 'oauth2',
+                    ),
+                    array(
+                        'slug' => 'admin-apps4u-oauth2-clients',
+                        'name'  => 'Clients',
+                        'class' => 'icon-circle-blank',
+                        'uri'   => 'oauth2/clients',
+                    ),
+                    array(
+                        'slug' => 'admin-apps4u-oauth2-scopes',
+                        'name'  => 'Scopes',
+                        'class' => 'icon-circle-blank',
+                        'uri'   => 'oauth2/scopes',
+                    ),
+                )
 			),
 
 		),

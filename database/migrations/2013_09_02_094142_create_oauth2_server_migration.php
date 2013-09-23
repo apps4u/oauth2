@@ -31,12 +31,12 @@ class CreateOauth2ServerMigration extends Migration {
                   // auto incremental id (PK)
                   $table->increments('id');
                   // link to oauth_clients on clients_id to id
-                  $table->integer('clients_id',40);
+                  $table->integer('clients_id',false,40);
                   $table->string('redirect_uri',255);
                   // created_at | updated_at DATETIME
                   $table->timestamps();
 
-                  $table->foreign('clients_id')->references('id')->on('oauth_clients')->onDelete('cascade')->onUpdate('cascade');
+//                  $table->foreign('clients_id')->references('id')->on('oauth_clients')->onDelete('cascade')->onUpdate('cascade');
 
               });
           Schema::create('oauth_sessions', function(Blueprint $table){
@@ -51,7 +51,7 @@ class CreateOauth2ServerMigration extends Migration {
                   // created_at | updated_at DATETIME
                   $table->timestamps();
                   $table->index(array('client_id','owner_type','owner_id'));
-                  $table->foreign('clients_id')->references('id')->on('oauth_clients')->onDelete('cascade')->onUpdate('cascade');
+                  $table->foreign('client_id')->references('id')->on('oauth_clients')->onDelete('cascade')->onUpdate('cascade');
 
               });
           Schema::create('oauth_session_access_tokens', function(Blueprint $table){
@@ -59,9 +59,9 @@ class CreateOauth2ServerMigration extends Migration {
                   $table->engine = "InnoDB";
                   // auto incremental id (PK)
                   $table->increments('id');
-                  $table->unsignedInteger('session_id',10)->index();
+                  $table->unsignedInteger('session_id',false)->index();
                   $table->string('access_token',40);
-                  $table->unsignedInteger('access_token_expires',10);
+                  $table->unsignedInteger('access_token_expires',false);
                   // created_at | updated_at DATETIME
                   $table->timestamps();
                   $table->unique(array('access_token','session_id'));
@@ -73,7 +73,7 @@ class CreateOauth2ServerMigration extends Migration {
                   $table->engine = "InnoDB";
                   // auto incremental id (PK)
                   $table->increments('id');
-                  $table->unsignedInteger('session_id',10)->unique();
+                  $table->unsignedInteger('session_id',false)->unique();
                   $table->string('auth_code',40);
                   $table->unsignedInteger('auth_code_expires');
                   // created_at | updated_at DATETIME
@@ -86,7 +86,7 @@ class CreateOauth2ServerMigration extends Migration {
 
                   $table->engine = "InnoDB";
                   // auto incremental session_id (PK)
-                  $table->unsignedInteger('session_id',10)->primary();
+                  $table->unsignedInteger('session_id',false)->primary();
                   $table->string('redirect_url',255);
                   // created_at | updated_at DATETIME
                   $table->timestamps();
@@ -100,12 +100,12 @@ class CreateOauth2ServerMigration extends Migration {
                   // auto incremental session_access_token_id (PK)
                   $table->unsignedInteger('session_access_token_id')->primary();
                   $table->string('refresh_token',40);
-                  $table->unsignedInteger('refresh_token_expires',10);
+                  $table->unsignedInteger('refresh_token_expires',false);
                   $table->string('client_id',40)->index();
                   // created_at | updated_at DATETIME
                   $table->timestamps();
 
-                  $table->foreign('clients_id')->references('id')->on('oauth_clients')->onDelete('cascade')->onUpdate('cascade');
+                  $table->foreign('client_id')->references('id')->on('oauth_clients')->onDelete('cascade')->onUpdate('cascade');
                   $table->foreign('session_access_token_id')->references('id')->on('oauth_session_access_tokens')->onDelete('cascade');
 
               });
@@ -125,11 +125,11 @@ class CreateOauth2ServerMigration extends Migration {
                   $table->engine = "InnoDB";
                   // auto incremental id (PK)
                   $table->increments('id');
-                  $table->unsignedInteger('session_access_token_id',10);
-                  $table->unsignedInteger('scope_id')->index();
+                  $table->unsignedInteger('session_access_token_id',false);
+                  $table->unsignedInteger('scope_id',false)->index();
                   // created_at | updated_at DATETIME
                   $table->timestamps();
-                  $table->unique(array('session_access_token_id','scope_id'));
+//                  $table->unique(array('session_access_token_id','scope_id'));
 
                   $table->foreign('session_access_token_id')->references('id')->on('oauth_session_access_tokens')->onDelete('cascade');
                   $table->foreign('scope_id')->references('id')->on('oauth_scopes')->onDelete('cascade');
@@ -140,7 +140,7 @@ class CreateOauth2ServerMigration extends Migration {
 
                   $table->engine = "InnoDB";
                   $table->unsignedInteger('oauth_session_authcode_id')->index();
-                  $table->unsignedInteger('scope_id')->index();
+                  $table->unsignedInteger('scope_id',false)->index();
                   // created_at | updated_at DATETIME
                   $table->timestamps();
 

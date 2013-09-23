@@ -9,6 +9,8 @@
 {{-- Queue Assets --}}
 {{ Asset::queue('apps4u-oauth2', 'apps4u/oauth2::css/style.css', 'bootstrap') }}
 {{ Asset::queue('apps4u-oauth2', 'apps4u/oauth2::js/script.js', 'jquery') }}
+{{ Asset::queue('tempo', 'js/vendor/tempo/tempo.js', 'jquery') }}
+{{ Asset::queue('data-grid', 'js/vendor/cartalyst/data-grid.js', 'tempo') }}
 
 {{-- Partial Assets --}}
 @section('assets')
@@ -39,32 +41,23 @@
 
     <div class="page__title">
 
-        <h1><span class="total"></span> {{ trans('apps4u/media::general.title') }}</h1>
+        <h1>{{ trans('apps4u/oauth2::general.title') }}</h1>
 
     </div>
 </header>
 <section id="apps4u-oauth2" class="page__content">
-
-    <header class="clearfix">
-        <h1>{{ trans('apps4u/oauth2::general.title') }}</h1>
-
-        <nav class="tertiary-navigation pull-right">
-            @widget('platform/menus::nav.show', array(2, 1, 'nav nav-pills', admin_uri()))
-        </nav>
-    </header>
-
-    <hr>
-
     <section class="content">
 
         <h3>{{ trans('apps4u/oauth2::general.byline') }}</h3>
-        <div class="data-grid">
-            <header class="data-grid__header">
-
-            </header>
-        </div>
 
     </section>
+
+</section>
+
+@stop
+@section('page__footer')
+<section id="oauth-admin-footer">
+
 
 </section>
 @stop

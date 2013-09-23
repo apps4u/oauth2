@@ -19,6 +19,7 @@
  */
 
 use Platform\Admin\Controllers\Admin\AdminController;
+use View;
 
 class Oauth2Controller extends AdminController {
 
@@ -29,6 +30,8 @@ class Oauth2Controller extends AdminController {
 	 */
 	public function getIndex()
 	{
+        set_active_menu('admin-apps4u-oauth2-oauth2');
+
         return View::make('apps4u/oauth2::index');
 	}
 

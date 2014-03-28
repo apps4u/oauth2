@@ -7,7 +7,7 @@
  *  © 2013 Apps 4 U Pty. Ltd.
  */
 
-namespace Apps4u\OAuth2\Storage\Laravel;
+namespace Apps4u\OAuth2\Repositories\Laravel;
 
 
 use League\OAuth2\Server\Storage\ScopeInterface;
@@ -28,6 +28,10 @@ class Scope implements ScopeInterface
     public function getScope($scope, $clientId = null, $grantType = null)
     {
         // TODO: Implement getScope() method.
-        return DB::table('oauth_scopes')->where('scope', $scope)->get();
+        $result =  DB::table('oauth_scopes')->where('scope', $scope)->get();
+        if($result === false){
+            return false;
+        }
+        return $result;
     }
 }

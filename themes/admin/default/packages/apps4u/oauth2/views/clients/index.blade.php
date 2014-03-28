@@ -1,4 +1,4 @@
-@extends('templates/default')
+@extends('templates/oauthlayout')
 
 {{-- Page title --}}
 @section('title')
@@ -11,6 +11,7 @@
 {{ Asset::queue('apps4u-oauth2', 'apps4u/oauth2::js/script.js', 'jquery') }}
 {{ Asset::queue('tempo', 'js/vendor/tempo/tempo.js', 'jquery') }}
 {{ Asset::queue('data-grid', 'js/vendor/cartalyst/data-grid.js', 'tempo') }}
+{{ Asset::queue('apps4u-oauth2', 'apps4u/oauth2::less/styles.less' 'bootstrap') }}
 
 {{-- Partial Assets --}}
 @section('assets')

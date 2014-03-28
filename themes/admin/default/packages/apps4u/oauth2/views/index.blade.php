@@ -9,6 +9,7 @@
 {{-- Queue Assets --}}
 {{ Asset::queue('apps4u-oauth2', 'apps4u/oauth2::css/style.css', 'bootstrap') }}
 {{ Asset::queue('apps4u-oauth2', 'apps4u/oauth2::js/script.js', 'jquery') }}
+{{ Asset::queue('apps4u-oauth2', 'apps4u/oauth2::less/styles.less' 'bootstrap') }}
 {{ Asset::queue('tempo', 'js/vendor/tempo/tempo.js', 'jquery') }}
 {{ Asset::queue('data-grid', 'js/vendor/cartalyst/data-grid.js', 'tempo') }}
 

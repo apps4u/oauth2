@@ -100,6 +100,7 @@ return array(
 
 	'require' => array(
 		'platform/admin',
+
 	),
 
 	/*

@@ -18,7 +18,7 @@ class ClientsController extends AdminController
 
    public function getIndex()
     {
-        set_active_menu('admin-apps4u-oauth2-clients');
+//        set_active_menu('admin-apps4u-oauth2-clients');
         return View::make('apps4u/oauth2::clients/index');
     }
 }

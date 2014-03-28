@@ -7,12 +7,12 @@
  *  © 2013 Apps 4 U Pty. Ltd.
  */
 
-namespace Apps4u\OAuth2\Storage\Laravel;
+namespace Apps4u\OAuth2\Repositories\Laravel;
 
 
 use League\OAuth2\Server\Storage\SessionInterface;
 use DB;
-
+use Carbon;
 class Session implements SessionInterface {
 
     /**
@@ -29,7 +29,9 @@ class Session implements SessionInterface {
         $id = DB::table('oauth_sessions')->insertGetId(array(
                 'client_id' => $clientId,
                 'owner_type' => $ownerType,
-                'owner_id' => $ownerId
+                'owner_id' => $ownerId,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ));
         return $id;
     }
@@ -64,7 +66,9 @@ class Session implements SessionInterface {
     {
         DB::table('oauth_session_redirects')->insert(array(
                 'session_id' => $sessionId,
-                'redirect_uri' => $redirectUri
+                'redirect_uri' => $redirectUri,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ));
     }
 
@@ -82,7 +86,9 @@ class Session implements SessionInterface {
         DB::table('oauth_session_access_tokens')->insert(array(
                 'session_id' => $sessionId,
                 'access_token' => $accessToken,
-                'access_token_expires' => $expireTime
+                'access_token_expires' => $expireTime,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ));
     }
 
@@ -102,7 +108,9 @@ class Session implements SessionInterface {
                 'session_access_token_id' => $accessTokenId,
                 'refresh_token' => $refreshToken,
                 'refresh_token_expires' => $expireTime,
-                'client_id' => $clientId
+                'client_id' => $clientId,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ));
     }
 
@@ -120,7 +128,9 @@ class Session implements SessionInterface {
         $id = DB::table('oauth_session_authcodes')->insertGetId(array(
                 'session_id' => $sessionId,
                 'auth_code' => $authCode,
-                'auth_code_expires' => $expireTime
+                'auth_code_expires' => $expireTime,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ));
         return $id;
     }
@@ -157,7 +167,8 @@ class Session implements SessionInterface {
                 ->where('oauth_session_authcodes.auth_code', '=', $authCode)
                 ->where('oauth_session_authcodes.auth_code_expires', '>=', time())
                 ->where('oauth_session_redirects.redirect_uri', '=', $redirectUri)
-                ->select(array(DB::raw('oauth_sessions.id AS session_id, oauth_session_authcodes.id AS authcode_id')));
+                ->select('oauth_sessions.id AS session_id', 'oauth_session_authcodes.id AS authcode_id')
+                ->first();
 
         // TODO: fix this check that the object returned is like PDO client
         return ($result === false) ? false : (array) $result;
@@ -175,10 +186,11 @@ class Session implements SessionInterface {
         // TODO: Implement validateAccessToken() method.
         $result =
             DB::table('oauth_session_access_tokens')
+                ->select('session_id', 'oauth_sessions.client_id', 'oauth_sessions.owner_id', 'oauth_sessions.owner_type')
                 ->join('oauth_sessions', 'session_id', '=', 'oauth_sessions.id')
                 ->where('access_token', '=', $accessToken)
                 ->where('access_token_expires', '>=', time())
-                ->get(array('session_id', 'oauth_sessions.client_id', 'oauth_sessions.owner_id', 'oauth_sessions.owner_type'));
+                ->get();
 
         return ($result === false) ? false : (array) $result;
     }
@@ -211,10 +223,11 @@ class Session implements SessionInterface {
         // TODO: Implement validateRefreshToken() method.
         $result =
             DB::table('oauth_session_refresh_tokens')
+                ->select('session_access_token_id')
                 ->where('refresh_token', '=', $refreshToken)
                 ->where('client_id', '=', $clientId)
                 ->where('refresh_token_expires', '>=', time())
-                ->get(array('session_access_token_id'));
+                ->get();
 
         return ($result === false) ? false : $result->session_access_token_id;
     }
@@ -251,7 +264,9 @@ class Session implements SessionInterface {
         DB::table('oauth_session_token_scopes')
             ->insert(array(
                  'session_access_token_id' => $authCodeId,
-                 'scope_id' => $scopeId
+                 'scope_id' => $scopeId,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
                 ));
     }
 
@@ -287,7 +302,9 @@ class Session implements SessionInterface {
         DB::table('oauth_session_token_scopes')
             ->insert(array(
                   'session_access_token_id' => $accessTokenId,
-                  'scope_id' => $scopeId
+                  'scope_id' => $scopeId,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
                 ));
     }
 
@@ -303,10 +320,11 @@ class Session implements SessionInterface {
         // TODO: Implement getScopes() method.
         $result =
             DB::table('oauth_session_token_scopes')
+                ->select('oauth_scopes.id', 'oauth_scopes.scope', 'oauth_scopes.name', 'oauth_scopes.description')
                 ->join('oauth_session_access_tokens', 'oauth_session_token_scopes.session_access_token_id', '=', 'oauth_session_access_tokens.id')
                 ->join('oauth_scopes', 'oauth_session_token_scopes.scope_id', '=', 'oauth_scopes.id')
                 ->where('access_token', '=', $accessToken)
-                ->get(array('oauth_scopes.id', 'oauth_scopes.scope', 'oauth_scopes.name', 'oauth_scopes.description'));
+                ->get();
         return $result;
     }
 }
